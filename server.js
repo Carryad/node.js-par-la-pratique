@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require("body-parser")
 const morgan = require("morgan")
+const http = require('http')
 
 
 function randomNumber(min,max)
@@ -14,9 +15,14 @@ function randomNumber(min,max)
 const nodeEnvironment = 'dev';
 const randomPort = randomNumber(3000,4000);
 
+app.use(morgan(`dev`));
+
+app.get('/', (req, res) => {
+  res.status(200).json('Hello World !');
+});
+
 app.get('/ping', (req, res) => {
-  res.status(200);
-  res.send('pong');
+  res.status(200).json('pong');
 });
 
 app.listen(randomPort, () => {
